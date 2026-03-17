@@ -427,7 +427,7 @@ function renderList(type,items,map) {
   el.innerHTML=items.map(f=>{const m=map(f);return`<div class="fi" id="fi-${f.id}"><span class="fi-icon">${m.ic}</span><div class="fi-info"><div class="fi-name">${esc(m.name)}</div><div class="fi-meta">${m.meta}</div></div>${m.chip}<div class="fi-actions">${m.act}</div></div>`;}).join('');
 }
 
-function openF(id){window.open('https://drive.google.com/drive/folders/'+id,'_blank');}
+function openF(id){window.open('https://drive.google.com/file/d/'+id+'/view','_blank');}
 
 let stopDeletion = false;
 
