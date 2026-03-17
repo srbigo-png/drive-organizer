@@ -222,7 +222,12 @@ main{padding:24px;overflow-y:auto}
     </div>
 
     <div class="panel active" id="panel-empty">
-      <div class="toolbar"><span class="toolbar-title">🗑️ תיקיות ריקות</span><button class="btn btn-danger btn-sm" onclick="deleteAll('empty')">מחק הכל</button></div>
+      <div class="toolbar">
+        <span class="toolbar-title">🗑️ תיקיות ריקות</span>
+        <button class="btn btn-danger btn-sm" onclick="deleteAll('empty')">העבר לפח</button>
+        <button class="btn btn-warn btn-sm" id="stopBtn-empty" onclick="stopDelete()" style="display:none">⏹ עצור</button>
+      </div>
+      <div class="alert alert-info" style="font-size:12px;padding:8px 12px">🗑️ הפריטים יועברו לפח האשפה של Google Drive — ניתן לשחזר בכל עת</div>
       <div class="file-list" id="list-empty"><div class="empty"><div class="ei">📁</div><h3>לחץ "סרוק Drive" להתחיל</h3></div></div>
     </div>
 
@@ -233,7 +238,12 @@ main{padding:24px;overflow-y:auto}
     </div>
 
     <div class="panel" id="panel-dup">
-      <div class="toolbar"><span class="toolbar-title">📋 קבצים כפולים</span><button class="btn btn-success btn-sm" onclick="moveDup()">ארגן בתיקייה</button></div>
+      <div class="toolbar">
+        <span class="toolbar-title">📋 קבצים כפולים</span>
+        <button class="btn btn-success btn-sm" onclick="moveDup()">ארגן בתיקייה</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteAll('dup')">העבר לפח</button>
+        <button class="btn btn-warn btn-sm" id="stopBtn-dup" onclick="stopDelete()" style="display:none">⏹ עצור</button>
+      </div>
       <div class="alert alert-info">📁 הכפולים יועברו לתיקייה <strong>"Duplicates"</strong></div>
       <div class="file-list" id="list-dup"><div class="empty"><div class="ei">📋</div><h3>לחץ "סרוק Drive" להתחיל</h3></div></div>
     </div>
@@ -390,7 +400,7 @@ function render() {
   renderList('empty',results.empty,f=>({
     ic:'📁',name:f.name,meta:'תיקייה ריקה • '+dt(f.createdTime),
     chip:'<span class="chip chip-danger">ריקה</span>',
-    act:`<button class="ibtn del" onclick="delItem('${f.id}','empty')" title="מחק">🗑️</button>`
+    act:`<button class="ibtn" onclick="openFolder('${f.id}')" title="פתח תיקייה">🔗</button><button class="ibtn del" onclick="delItem('${f.id}','empty')" title="העבר לפח">🗑️</button>`
   }));
   renderList('old',results.old,f=>({
     ic:icon(f.mimeType),name:f.name,meta:'שונה: '+dt(f.modifiedTime)+(f.size?' • '+sz(f.size):''),
@@ -419,8 +429,14 @@ function renderList(type,items,map) {
 
 function openF(id){window.open('https://drive.google.com/drive/folders/'+id,'_blank');}
 
+let stopDeletion = false;
+
+function openFolder(id) {
+  window.open('https://drive.google.com/drive/folders/'+id, '_blank');
+}
+
 async function delItem(id,type) {
-  if(!confirm('מחק פריט זה?'))return;
+  if(!confirm('העבר פריט זה לפח האשפה של Google Drive?\n\nניתן לשחזר אותו בכל עת.'))return;
   try{
     await del(`https://www.googleapis.com/drive/v3/files/${id}`);
     results[type]=results[type].filter(f=>f.id!==id);
@@ -434,14 +450,37 @@ async function delItem(id,type) {
 async function deleteAll(type) {
   const items=results[type];
   if(!items.length)return;
-  if(!confirm(`מחק ${items.length} פריטים?`))return;
-  let n=0;
+  if(!confirm(`העבר ${items.length} פריטים לפח האשפה של Google Drive?\n\nניתן לשחזר אותם בכל עת.`))return;
+  
+  stopDeletion = false;
+  const stopBtn = document.getElementById('stopBtn-'+type);
+  if(stopBtn) stopBtn.style.display='inline-flex';
+  
+  let n=0, errors=0;
   for(const f of [...items]){
-    try{await del(`https://www.googleapis.com/drive/v3/files/${f.id}`);results[type]=results[type].filter(x=>x.id!==f.id);n++;const el=document.getElementById('fi-'+f.id);if(el)el.remove();}catch(e){}
+    if(stopDeletion) break;
+    try{
+      await del(`https://www.googleapis.com/drive/v3/files/${f.id}`);
+      results[type]=results[type].filter(x=>x.id!==f.id);
+      n++;
+      const el=document.getElementById('fi-'+f.id);
+      if(el){el.style.opacity='0';el.style.transition='all .2s';setTimeout(()=>el.remove(),200);}
+      document.getElementById('s-'+type).textContent=results[type].length;
+      document.getElementById('b-'+type).textContent=results[type].length;
+    }catch(e){errors++;}
+    await new Promise(r=>setTimeout(r,150));
   }
-  document.getElementById('s-'+type).textContent=results[type].length;
-  document.getElementById('b-'+type).textContent=results[type].length;
-  alert(`נמחקו ${n} פריטים ✅`);
+  
+  if(stopBtn) stopBtn.style.display='none';
+  let msg = stopDeletion ? `הופסק! הועברו לפח: ${n} פריטים` : `הועברו לפח האשפה: ${n} פריטים ✅`;
+  if(errors) msg += `\nשגיאות: ${errors}`;
+  alert(msg);
+  stopDeletion = false;
+}
+
+function stopDelete() {
+  stopDeletion = true;
+  document.querySelectorAll('[id^="stopBtn-"]').forEach(b=>b.style.display='none');
 }
 
 async function getOrMakeFolder(name) {
