@@ -3,212 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <title>Drive Organizer</title>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0d1117; --surface:#161b22; --surface2:#1c2333;
-  --border:#30363d; --accent:#4fc3f7; --danger:#f85149;
-  --warn:#e3b341; --success:#3fb950; --text:#e6edf3; --muted:#7d8590;
-}
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2333;--border:#30363d;--accent:#4fc3f7;--danger:#f85149;--warn:#e3b341;--success:#3fb950;--text:#e6edf3;--muted:#7d8590}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;direction:rtl}
-
-/* HEADER */
-header{background:linear-gradient(135deg,#1a2332,#0d1117);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
-.logo{width:38px;height:38px;background:linear-gradient(135deg,var(--accent),#1976d2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
-header h1{font-size:18px;font-weight:700}
-.hdr-sub{color:var(--muted);font-size:12px;margin-right:6px}
-.status-dot{width:8px;height:8px;border-radius:50%;margin-right:auto;background:var(--danger);box-shadow:0 0 8px var(--danger);transition:all .3s}
-.status-dot.on{background:var(--success);box-shadow:0 0 8px var(--success)}
-#statusTxt{font-size:12px;color:var(--muted)}
-
-/* LAYOUT */
-.layout{display:grid;grid-template-columns:280px 1fr;min-height:calc(100vh - 65px)}
-
-/* SIDEBAR */
-aside{background:var(--surface);border-left:1px solid var(--border);padding:20px 16px;display:flex;flex-direction:column;gap:20px;overflow-y:auto}
-.sec-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:10px}
-
-/* BUTTONS */
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:10px;border:none;font-family:'Heebo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;width:100%}
+header{background:#0d1117;border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+.logo{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),#1976d2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+header h1{font-size:17px;font-weight:700}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--danger);box-shadow:0 0 8px var(--danger);transition:all .3s;margin-right:auto}
+.dot.on{background:var(--success);box-shadow:0 0 8px var(--success)}
+#stxt{font-size:12px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:260px 1fr;min-height:calc(100vh - 65px)}
+aside{background:var(--surface);border-left:1px solid var(--border);padding:18px 14px;display:flex;flex-direction:column;gap:16px;overflow-y:auto}
+.sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px}
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;border-radius:9px;border:none;font-family:'Heebo',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;width:100%}
 .btn:hover:not(:disabled){transform:translateY(-1px)}
-.btn:active:not(:disabled){transform:scale(.98)}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none!important}
-.btn-google{background:#fff;color:#333;box-shadow:0 2px 10px rgba(0,0,0,.3)}
-.btn-google:hover:not(:disabled){box-shadow:0 4px 16px rgba(0,0,0,.4)}
-.btn-primary{background:linear-gradient(135deg,var(--accent),#1976d2);color:#fff;box-shadow:0 4px 14px rgba(79,195,247,.25)}
-.btn-primary:hover:not(:disabled){box-shadow:0 6px 20px rgba(79,195,247,.4)}
-.btn-danger{background:rgba(248,81,73,.12);color:var(--danger);border:1px solid rgba(248,81,73,.3)}
-.btn-danger:hover:not(:disabled){background:rgba(248,81,73,.22)}
-.btn-warn{background:rgba(227,179,65,.12);color:var(--warn);border:1px solid rgba(227,179,65,.3)}
-.btn-warn:hover:not(:disabled){background:rgba(227,179,65,.22)}
-.btn-success{background:rgba(63,185,80,.12);color:var(--success);border:1px solid rgba(63,185,80,.3)}
-.btn-success:hover:not(:disabled){background:rgba(63,185,80,.22)}
-.btn-sm{width:auto;padding:7px 14px;font-size:12px}
-
-/* TOGGLES */
-.opt{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border)}
+.btn-g{background:#fff;color:#333;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.btn-p{background:linear-gradient(135deg,var(--accent),#1976d2);color:#fff}
+.btn-d{background:rgba(248,81,73,.12);color:var(--danger);border:1px solid rgba(248,81,73,.3)}
+.btn-d:hover:not(:disabled){background:rgba(248,81,73,.22)}
+.btn-w{background:rgba(227,179,65,.12);color:var(--warn);border:1px solid rgba(227,179,65,.3)}
+.btn-s{width:auto;padding:6px 12px;font-size:12px}
+.opt{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)}
 .opt:last-child{border-bottom:none}
-.opt-label{font-size:13px;display:flex;align-items:center;gap:8px}
-.toggle{width:40px;height:22px;background:var(--border);border-radius:11px;position:relative;cursor:pointer;transition:all .2s;border:none;flex-shrink:0}
-.toggle::after{content:'';position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;background:var(--muted);transition:all .2s}
-.toggle.on{background:var(--accent)}
-.toggle.on::after{right:auto;left:3px;background:#fff}
-
-/* STATS */
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.stat{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
-.stat-n{font-size:24px;font-weight:900;line-height:1}
+.opt-l{font-size:13px;display:flex;align-items:center;gap:7px}
+.tgl{width:38px;height:21px;background:var(--border);border-radius:11px;position:relative;cursor:pointer;transition:all .2s;border:none;flex-shrink:0}
+.tgl::after{content:'';position:absolute;top:3px;right:3px;width:15px;height:15px;border-radius:50%;background:var(--muted);transition:all .2s}
+.tgl.on{background:var(--accent)}
+.tgl.on::after{right:auto;left:3px;background:#fff}
+.stat-g{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.stat{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:11px;text-align:center}
+.stat-n{font-size:22px;font-weight:900;line-height:1}
 .stat-l{font-size:10px;color:var(--muted);margin-top:3px}
-.c-danger{color:var(--danger)} .c-warn{color:var(--warn)} .c-accent{color:var(--accent)} .c-success{color:var(--success)}
-
-/* MAIN */
-main{padding:24px;overflow-y:auto}
-.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border)}
-.tab{padding:10px 18px;border-radius:8px 8px 0 0;border:none;background:transparent;color:var(--muted);font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:6px;border-bottom:2px solid transparent;margin-bottom:-1px}
+.cd{color:var(--danger)}.cw{color:var(--warn)}.ca{color:var(--accent)}.cs{color:var(--success)}
+main{padding:22px;overflow-y:auto}
+.tabs{display:flex;gap:3px;margin-bottom:18px;border-bottom:1px solid var(--border)}
+.tab{padding:9px 16px;border-radius:7px 7px 0 0;border:none;background:transparent;color:var(--muted);font-family:'Heebo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;border-bottom:2px solid transparent;margin-bottom:-1px}
 .tab:hover{color:var(--text);background:var(--surface2)}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-.badge{background:var(--danger);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center}
-.badge.warn{background:var(--warn)} .badge.ok{background:var(--success)}
-
-.panel{display:none} .panel.active{display:block}
-.toolbar{display:flex;align-items:center;gap:8px;margin-bottom:14px}
-.toolbar-title{font-size:15px;font-weight:700;flex:1}
-
-/* FILE LIST */
-.file-list{display:flex;flex-direction:column;gap:6px}
-.fi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;transition:all .15s;animation:fadeUp .25s ease}
+.badge{background:var(--danger);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px}
+.badge.w{background:var(--warn)}.badge.s{background:var(--success)}
+.panel{display:none}.panel.active{display:block}
+.tbar{display:flex;align-items:center;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.tbar-t{font-size:14px;font-weight:700;flex:1}
+.flist{display:flex;flex-direction:column;gap:5px}
+.fi{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 14px;display:flex;align-items:center;gap:10px;transition:all .15s;animation:fu .2s ease}
 .fi:hover{border-color:var(--accent);background:var(--surface2)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.fi-icon{font-size:20px;flex-shrink:0}
-.fi-info{flex:1;min-width:0}
-.fi-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fi-meta{font-size:11px;color:var(--muted);margin-top:2px}
-.fi-actions{display:flex;gap:6px;flex-shrink:0}
-.ibtn{width:30px;height:30px;border-radius:6px;border:none;background:transparent;cursor:pointer;font-size:14px;transition:all .15s;display:flex;align-items:center;justify-content:center;color:var(--muted)}
-.ibtn:hover{background:var(--surface2);color:var(--text)}
-.ibtn.del:hover{background:rgba(248,81,73,.15);color:var(--danger)}
-.chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;flex-shrink:0}
-.chip-danger{background:rgba(248,81,73,.15);color:var(--danger);border:1px solid rgba(248,81,73,.25)}
-.chip-warn{background:rgba(227,179,65,.15);color:var(--warn);border:1px solid rgba(227,179,65,.25)}
-.chip-accent{background:rgba(79,195,247,.15);color:var(--accent);border:1px solid rgba(79,195,247,.25)}
-
-/* EMPTY STATE */
-.empty{text-align:center;padding:60px 20px;color:var(--muted)}
-.empty .ei{font-size:48px;margin-bottom:14px}
-.empty h3{font-size:16px;font-weight:600;color:var(--text);margin-bottom:6px}
-
-/* ALERT */
-.alert{padding:11px 15px;border-radius:8px;font-size:13px;display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.alert-info{background:rgba(79,195,247,.08);border:1px solid rgba(79,195,247,.25);color:var(--accent)}
-.alert-warn{background:rgba(227,179,65,.08);border:1px solid rgba(227,179,65,.25);color:var(--warn)}
-
-/* SCAN OVERLAY */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:999;backdrop-filter:blur(4px)}
-.overlay.show{display:flex}
-.ov-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:40px;text-align:center;max-width:340px;width:90%}
-.ov-card h3{font-size:18px;font-weight:700;margin:16px 0 8px}
-.ov-card p{color:var(--muted);font-size:13px;margin-bottom:18px}
-.spinner{width:54px;height:54px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto}
-@keyframes spin{to{transform:rotate(360deg)}}
-.prog{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:10px}
-.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),#1976d2);border-radius:3px;transition:width .4s}
-
-/* WELCOME */
+@keyframes fu{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.fi-img{width:44px;height:44px;object-fit:cover;border-radius:6px;cursor:pointer;flex-shrink:0;border:1px solid var(--border)}
+.fi-ic{font-size:20px;flex-shrink:0}
+.fi-inf{flex:1;min-width:0}
+.fi-n{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fi-m{font-size:11px;color:var(--muted);margin-top:2px}
+.fi-act{display:flex;gap:5px;flex-shrink:0}
+.ib{width:28px;height:28px;border-radius:6px;border:none;background:transparent;cursor:pointer;font-size:13px;transition:all .15s;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.ib:hover{background:var(--surface2);color:var(--text)}
+.ib.d:hover{background:rgba(248,81,73,.15);color:var(--danger)}
+.chip{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;flex-shrink:0}
+.chip-d{background:rgba(248,81,73,.15);color:var(--danger);border:1px solid rgba(248,81,73,.25)}
+.chip-w{background:rgba(227,179,65,.15);color:var(--warn);border:1px solid rgba(227,179,65,.25)}
+.chip-a{background:rgba(79,195,247,.15);color:var(--accent);border:1px solid rgba(79,195,247,.25)}
+.empty{text-align:center;padding:50px 20px;color:var(--muted)}
+.empty .ei{font-size:44px;margin-bottom:12px}
+.empty h3{font-size:15px;font-weight:600;color:var(--text);margin-bottom:5px}
+.alert{padding:10px 14px;border-radius:8px;font-size:12px;display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.al-i{background:rgba(79,195,247,.08);border:1px solid rgba(79,195,247,.25);color:var(--accent)}
+.al-w{background:rgba(227,179,65,.08);border:1px solid rgba(227,179,65,.25);color:var(--warn)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:999;backdrop-filter:blur(4px)}
+.ov.show{display:flex}
+.ovc{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:36px;text-align:center;max-width:320px;width:90%}
+.ovc h3{font-size:17px;font-weight:700;margin:14px 0 7px}
+.ovc p{color:var(--muted);font-size:13px;margin-bottom:16px}
+.spin{width:50px;height:50px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:sp .8s linear infinite;margin:0 auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.prog{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:8px}
+.progf{height:100%;background:linear-gradient(90deg,var(--accent),#1976d2);border-radius:2px;transition:width .4s}
 .welcome{display:flex;align-items:center;justify-content:center;height:calc(100vh - 65px)}
-.wcard{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;text-align:center;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.4)}
-.wcard .wi{font-size:60px;margin-bottom:20px}
-.wcard h2{font-size:22px;font-weight:700;margin-bottom:10px}
-.wcard p{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:28px}
-.features{display:flex;flex-direction:column;gap:8px;margin-bottom:28px;text-align:right}
-.feat{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);padding:8px 12px;background:var(--surface2);border-radius:8px}
-.feat span:first-child{font-size:18px}
-
+.wc{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:44px 36px;text-align:center;max-width:380px;width:90%}
+.wc .wi{font-size:56px;margin-bottom:18px}
+.wc h2{font-size:21px;font-weight:700;margin-bottom:9px}
+.wc p{color:var(--muted);font-size:14px;line-height:1.7;margin-bottom:24px}
+.feats{display:flex;flex-direction:column;gap:7px;margin-bottom:24px;text-align:right}
+.feat{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--muted);padding:7px 11px;background:var(--surface2);border-radius:7px}
+.feat span:first-child{font-size:17px}
+.cache-bar{display:none;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:11px;color:var(--muted);flex-direction:column;gap:5px}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.img-pv{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer}
+.img-pv img{max-width:90vw;max-height:80vh;object-fit:contain;border-radius:10px}
+.img-pv .pv-name{color:#fff;font-size:14px;margin-bottom:12px;max-width:80%;text-align:center}
+.img-pv .pv-close{color:var(--muted);font-size:12px;margin-top:10px}
 </style>
 </head>
 <body>
 
-<div class="overlay" id="overlay">
-  <div class="ov-card">
-    <div class="spinner"></div>
+<div class="ov" id="ov">
+  <div class="ovc">
+    <div class="spin"></div>
     <h3>סורק את Google Drive...</h3>
     <p id="ovMsg">מחפש קבצים...</p>
-    <div class="prog"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog"><div class="progf" id="progF" style="width:0%"></div></div>
   </div>
 </div>
 
 <header>
   <div class="logo">📁</div>
   <h1>Drive Organizer</h1>
-  <span class="hdr-sub">מאורגן Google Drive</span>
-  <div class="status-dot" id="dot"></div>
-  <span id="statusTxt">לא מחובר</span>
+  <div class="dot" id="dot"></div>
+  <span id="stxt">לא מחובר</span>
 </header>
 
-<!-- WELCOME -->
 <div class="welcome" id="welcome">
-  <div class="wcard">
+  <div class="wc">
     <div class="wi">🗂️</div>
     <h2>Drive Organizer</h2>
     <p>נקה וארגן את Google Drive שלך בלחיצה אחת</p>
-    <div class="features">
+    <div class="feats">
       <div class="feat"><span>🗑️</span><span>מוצא ומוחק תיקיות ריקות</span></div>
-      <div class="feat"><span>📅</span><span>מארכב קבצים ישנים</span></div>
+      <div class="feat"><span>📅</span><span>מזהה קבצים ישנים</span></div>
       <div class="feat"><span>📋</span><span>מזהה קבצים כפולים</span></div>
-      <div class="feat"><span>📂</span><span>מוצא תיקיות כפולות</span></div>
+      <div class="feat"><span>🖼️</span><span>תצוגה מקדימה של תמונות</span></div>
     </div>
-    <button class="btn btn-google" onclick="signIn()">
-      <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 002.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 01-7.18-2.54H1.83v2.07A8 8 0 008.98 17z"/><path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 010-3.04V5.41H1.83a8 8 0 000 7.18l2.67-2.07z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 001.83 5.4L4.5 7.49a4.77 4.77 0 014.48-3.3z"/></svg>
+    <button class="btn btn-g" onclick="signIn()">
+      <svg width="17" height="17" viewBox="0 0 18 18"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 002.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 01-7.18-2.54H1.83v2.07A8 8 0 008.98 17z"/><path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 010-3.04V5.41H1.83a8 8 0 000 7.18l2.67-2.07z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 001.83 5.4L4.5 7.49a4.77 4.77 0 014.48-3.3z"/></svg>
       התחבר עם Google
     </button>
   </div>
 </div>
 
-<!-- APP -->
-<div class="layout" id="appLayout" style="display:none">
+<div class="layout" id="app" style="display:none">
   <aside>
     <div>
-      <div class="sec-title">חשבון</div>
-      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-          <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#1976d2);display:flex;align-items:center;justify-content:center;font-size:14px">👤</div>
-          <div>
-            <div style="font-size:13px;font-weight:600">מחובר</div>
-            <div id="userEmail" style="font-size:11px;color:var(--muted)"></div>
-          </div>
+      <div class="sec">חשבון</div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#1976d2);display:flex;align-items:center;justify-content:center;font-size:13px">👤</div>
+          <div style="font-size:13px;font-weight:600">מחובר ל-Google Drive</div>
         </div>
-        <button class="btn btn-danger btn-sm" onclick="signOut()" style="width:100%">התנתק</button>
+        <button class="btn btn-d btn-s" onclick="signOut()" style="width:100%">התנתק</button>
       </div>
     </div>
 
     <div>
-      <div class="sec-title">מה לסרוק</div>
-      <div class="opt"><span class="opt-label"><span>🗑️</span> תיקיות ריקות</span><button class="toggle on" id="t-empty" onclick="this.classList.toggle('on')"></button></div>
-      <div class="opt"><span class="opt-label"><span>📅</span> קבצים לפני 2025</span><button class="toggle on" id="t-old" onclick="this.classList.toggle('on')"></button></div>
-      <div class="opt"><span class="opt-label"><span>📋</span> קבצים כפולים</span><button class="toggle on" id="t-dup" onclick="this.classList.toggle('on')"></button></div>
-      <div class="opt"><span class="opt-label"><span>📂</span> תיקיות כפולות</span><button class="toggle on" id="t-dupf" onclick="this.classList.toggle('on')"></button></div>
+      <div class="sec">מה לסרוק</div>
+      <div class="opt"><span class="opt-l"><span>🗑️</span>תיקיות ריקות</span><button class="tgl on" id="t-empty" onclick="this.classList.toggle('on')"></button></div>
+      <div class="opt"><span class="opt-l"><span>📅</span>קבצים לפני 2025</span><button class="tgl on" id="t-old" onclick="this.classList.toggle('on')"></button></div>
+      <div class="opt"><span class="opt-l"><span>📋</span>קבצים כפולים</span><button class="tgl on" id="t-dup" onclick="this.classList.toggle('on')"></button></div>
+      <div class="opt"><span class="opt-l"><span>📂</span>תיקיות כפולות</span><button class="tgl on" id="t-dupf" onclick="this.classList.toggle('on')"></button></div>
     </div>
 
-    <button class="btn btn-primary" onclick="startScan()">🔍 סרוק Drive</button>
+    <div class="cache-bar" id="cacheBar">
+      <span id="cacheTxt"></span>
+      <button class="btn btn-w btn-s" onclick="clearCache()" style="font-size:11px">🗑️ נקה ורענן</button>
+    </div>
+
+    <button class="btn btn-p" onclick="startScan()">🔍 סרוק Drive</button>
 
     <div>
-      <div class="sec-title">ממצאים</div>
-      <div class="stat-grid">
-        <div class="stat"><div class="stat-n c-danger" id="s-empty">—</div><div class="stat-l">תיקיות ריקות</div></div>
-        <div class="stat"><div class="stat-n c-warn" id="s-old">—</div><div class="stat-l">קבצים ישנים</div></div>
-        <div class="stat"><div class="stat-n c-accent" id="s-dup">—</div><div class="stat-l">כפולים</div></div>
-        <div class="stat"><div class="stat-n c-success" id="s-dupf">—</div><div class="stat-l">תיקיות כפולות</div></div>
+      <div class="sec">ממצאים</div>
+      <div class="stat-g">
+        <div class="stat"><div class="stat-n cd" id="s-empty">—</div><div class="stat-l">ריקות</div></div>
+        <div class="stat"><div class="stat-n cw" id="s-old">—</div><div class="stat-l">ישנים</div></div>
+        <div class="stat"><div class="stat-n ca" id="s-dup">—</div><div class="stat-l">כפולים</div></div>
+        <div class="stat"><div class="stat-n cs" id="s-dupf">—</div><div class="stat-l">תיקיות כפולות</div></div>
       </div>
     </div>
 
     <div id="actPanel" style="display:none">
-      <div class="sec-title">פעולות מהירות</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <button class="btn btn-danger" onclick="deleteAll('empty')">🗑️ מחק תיקיות ריקות</button>
-        <button class="btn btn-warn" onclick="moveOld()">📦 ארכב קבצים ישנים</button>
-        <button class="btn btn-success" onclick="moveDup()">📁 ארגן כפולים</button>
+      <div class="sec">פעולות מהירות</div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <button class="btn btn-d" onclick="delAll('empty')">🗑️ העבר ריקות לפח</button>
+        <button class="btn btn-d" onclick="delAll('old')">🗑️ העבר ישנים לפח</button>
+        <button class="btn btn-d" onclick="delAll('dup')">🗑️ העבר כפולים לפח</button>
       </div>
     </div>
   </aside>
@@ -216,297 +184,310 @@ main{padding:24px;overflow-y:auto}
   <main>
     <div class="tabs">
       <button class="tab active" onclick="showTab('empty',this)">🗑️ ריקות <span class="badge" id="b-empty">0</span></button>
-      <button class="tab" onclick="showTab('old',this)">📅 ישנים <span class="badge warn" id="b-old">0</span></button>
-      <button class="tab" onclick="showTab('dup',this)">📋 כפולים <span class="badge ok" id="b-dup">0</span></button>
-      <button class="tab" onclick="showTab('dupf',this)">📂 תיקיות כפולות <span class="badge ok" id="b-dupf">0</span></button>
+      <button class="tab" onclick="showTab('old',this)">📅 ישנים <span class="badge w" id="b-old">0</span></button>
+      <button class="tab" onclick="showTab('dup',this)">📋 כפולים <span class="badge s" id="b-dup">0</span></button>
+      <button class="tab" onclick="showTab('dupf',this)">📂 כפולות <span class="badge s" id="b-dupf">0</span></button>
     </div>
 
     <div class="panel active" id="panel-empty">
-      <div class="toolbar">
-        <span class="toolbar-title">🗑️ תיקיות ריקות</span>
-        <button class="btn btn-danger btn-sm" onclick="deleteAll('empty')">העבר לפח</button>
-        <button class="btn btn-warn btn-sm" id="stopBtn-empty" onclick="stopDelete()" style="display:none">⏹ עצור</button>
+      <div class="tbar">
+        <span class="tbar-t">🗑️ תיקיות ריקות</span>
+        <button class="btn btn-d btn-s" onclick="delAll('empty')">העבר הכל לפח</button>
+        <button class="btn btn-w btn-s" id="stop-empty" onclick="stop()" style="display:none">⏹ עצור</button>
       </div>
-      <div class="alert alert-info" style="font-size:12px;padding:8px 12px">🗑️ הפריטים יועברו לפח האשפה של Google Drive — ניתן לשחזר בכל עת</div>
-      <div class="file-list" id="list-empty"><div class="empty"><div class="ei">📁</div><h3>לחץ "סרוק Drive" להתחיל</h3></div></div>
+      <div class="alert al-i">🗑️ הפריטים יועברו לפח האשפה של Google Drive — ניתן לשחזר בכל עת</div>
+      <div class="flist" id="list-empty"><div class="empty"><div class="ei">📁</div><h3>לחץ "סרוק Drive" להתחיל</h3></div></div>
     </div>
 
     <div class="panel" id="panel-old">
-      <div class="toolbar"><span class="toolbar-title">📅 קבצים לפני 2025</span><button class="btn btn-warn btn-sm" onclick="moveOld()">העבר לארכיב</button></div>
-      <div class="alert alert-info">📦 הקבצים יועברו לתיקייה <strong>"Archive - Before 2025"</strong></div>
-      <div class="file-list" id="list-old"><div class="empty"><div class="ei">📅</div><h3>לחץ "סרוק Drive" להתחיל</h3></div></div>
+      <div class="tbar">
+        <span class="tbar-t">📅 קבצים לפני 2025</span>
+        <button class="btn btn-d btn-s" onclick="delAll('old')">העבר הכל לפח</button>
+        <button class="btn btn-w btn-s" id="stop-old" onclick="stop()" style="display:none">⏹ עצור</button>
+      </div>
+      <div class="alert al-i">🗑️ הפריטים יועברו לפח האשפה של Google Drive — ניתן לשחזר בכל עת</div>
+      <div class="flist" id="list-old"><div class="empty"><div class="ei">📅</div><h3>לחץ "סרוק Drive" להתחיל</h3></div></div>
     </div>
 
     <div class="panel" id="panel-dup">
-      <div class="toolbar">
-        <span class="toolbar-title">📋 קבצים כפולים</span>
-        <button class="btn btn-success btn-sm" onclick="moveDup()">ארגן בתיקייה</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteAll('dup')">העבר לפח</button>
-        <button class="btn btn-warn btn-sm" id="stopBtn-dup" onclick="stopDelete()" style="display:none">⏹ עצור</button>
+      <div class="tbar">
+        <span class="tbar-t">📋 קבצים כפולים</span>
+        <button class="btn btn-d btn-s" onclick="delAll('dup')">העבר הכל לפח</button>
+        <button class="btn btn-w btn-s" id="stop-dup" onclick="stop()" style="display:none">⏹ עצור</button>
       </div>
-      <div class="alert alert-info">📁 הכפולים יועברו לתיקייה <strong>"Duplicates"</strong></div>
-      <div class="file-list" id="list-dup"><div class="empty"><div class="ei">📋</div><h3>לחץ "סרוק Drive" להתחיל</h3></div></div>
+      <div class="alert al-i">🗑️ הפריטים יועברו לפח האשפה של Google Drive — ניתן לשחזר בכל עת</div>
+      <div class="flist" id="list-dup"><div class="empty"><div class="ei">📋</div><h3>לחץ "סרוק Drive" להתחיל</h3></div></div>
     </div>
 
     <div class="panel" id="panel-dupf">
-      <div class="toolbar"><span class="toolbar-title">📂 תיקיות כפולות</span></div>
-      <div class="alert alert-warn">⚠️ תיקיות עם שם זהה — מומלץ למזג ידנית</div>
-      <div class="file-list" id="list-dupf"><div class="empty"><div class="ei">📂</div><h3>לחץ "סרוק Drive" להתחיל</h3></div></div>
+      <div class="tbar">
+        <span class="tbar-t">📂 תיקיות כפולות</span>
+        <button class="btn btn-d btn-s" onclick="delAll('dupf')">העבר הכל לפח</button>
+        <button class="btn btn-w btn-s" id="stop-dupf" onclick="stop()" style="display:none">⏹ עצור</button>
+      </div>
+      <div class="alert al-w">⚠️ תיקיות עם שם זהה — בדוק לפני מחיקה</div>
+      <div class="flist" id="list-dupf"><div class="empty"><div class="ei">📂</div><h3>לחץ "סרוק Drive" להתחיל</h3></div></div>
     </div>
   </main>
 </div>
 
 <script src="https://accounts.google.com/gsi/client" async></script>
 <script>
-const CLIENT_ID = '248438296900-g68q2pnis6gjagna41pp3sdvi428l9mp.apps.googleusercontent.com';
-const FOLDER_MIME = 'application/vnd.google-apps.folder';
-let token = null;
-let results = {empty:[],old:[],dup:[],dupf:[]};
+const CID='248438296900-g68q2pnis6gjagna41pp3sdvi428l9mp.apps.googleusercontent.com';
+const FM='application/vnd.google-apps.folder';
+let tk=null, res={empty:[],old:[],dup:[],dupf:[]}, stopped=false;
 
-function signIn() {
-  if (!window.google) { setTimeout(signIn, 500); return; }
+// AUTH
+function signIn(){
+  if(!window.google){setTimeout(signIn,500);return;}
   window.google.accounts.oauth2.initTokenClient({
-    client_id: CLIENT_ID,
-    scope: 'https://www.googleapis.com/auth/drive',
-    callback: r => {
-      if (r.access_token) {
-        token = r.access_token;
-        document.getElementById('welcome').style.display = 'none';
-        document.getElementById('appLayout').style.display = 'grid';
+    client_id:CID,
+    scope:'https://www.googleapis.com/auth/drive',
+    callback:r=>{
+      if(r.access_token){
+        tk=r.access_token;
+        document.getElementById('welcome').style.display='none';
+        document.getElementById('app').style.display='grid';
         document.getElementById('dot').classList.add('on');
-        document.getElementById('statusTxt').textContent = 'מחובר ✓';
+        document.getElementById('stxt').textContent='מחובר ✓';
+        loadCache();
       }
     }
   }).requestAccessToken();
 }
 
-function signOut() {
-  if (window.google && token) window.google.accounts.oauth2.revoke(token);
-  token = null;
-  document.getElementById('welcome').style.display = 'flex';
-  document.getElementById('appLayout').style.display = 'none';
+function signOut(){
+  if(window.google&&tk)window.google.accounts.oauth2.revoke(tk);
+  tk=null;
+  document.getElementById('welcome').style.display='flex';
+  document.getElementById('app').style.display='none';
   document.getElementById('dot').classList.remove('on');
-  document.getElementById('statusTxt').textContent = 'לא מחובר';
-  results = {empty:[],old:[],dup:[],dupf:[]};
+  document.getElementById('stxt').textContent='לא מחובר';
+  res={empty:[],old:[],dup:[],dupf:[]};
 }
 
-function showTab(name, el) {
+// TABS
+function showTab(n,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+name).classList.add('active');
+  document.getElementById('panel-'+n).classList.add('active');
   el.classList.add('active');
 }
 
-async function get(url) {
-  const r = await fetch(url,{headers:{Authorization:'Bearer '+token}});
-  if(!r.ok) throw new Error(await r.text());
-  return r.json();
-}
-async function del(url) {
-  const r = await fetch(url,{method:'DELETE',headers:{Authorization:'Bearer '+token}});
-  if(!r.ok) throw new Error(await r.text());
-}
-async function post(url,body) {
-  const r = await fetch(url,{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!r.ok) throw new Error(await r.text());
+// API
+async function api(url,opts={}){
+  const r=await fetch(url,{...opts,headers:{Authorization:'Bearer '+tk,'Content-Type':'application/json',...(opts.headers||{})}});
+  if(!r.ok)throw new Error(await r.text());
+  if(opts.method==='DELETE')return;
   return r.json();
 }
 
-async function getAll(q,fields,size=1000) {
+async function getAll(q,fields,size=1000){
   let items=[],pt=null;
-  do {
+  do{
     let url=`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(q)}&fields=${encodeURIComponent('nextPageToken,'+fields)}&pageSize=${size}`;
-    if(pt) url+='&pageToken='+pt;
-    const d=await get(url);
+    if(pt)url+='&pageToken='+pt;
+    const d=await api(url);
     items.push(...(d.files||[]));
     pt=d.nextPageToken||null;
-  } while(pt);
+  }while(pt);
   return items;
 }
 
-function setOv(pct,msg) {
-  document.getElementById('progFill').style.width=pct+'%';
-  document.getElementById('ovMsg').textContent=msg;
-}
+// SCAN
+function setP(p,m){document.getElementById('progF').style.width=p+'%';document.getElementById('ovMsg').textContent=m;}
 
-async function startScan() {
-  if(!token) return;
-  document.getElementById('overlay').classList.add('show');
-  try {
-    setOv(10,'מחפש תיקיות...');
-    const folders = await getAll("mimeType='application/vnd.google-apps.folder' and trashed=false",'files(id,name,parents,createdTime)');
+async function startScan(){
+  if(!tk)return;
+  document.getElementById('ov').classList.add('show');
+  try{
+    setP(10,'מחפש תיקיות...');
+    const folders=await getAll("mimeType='application/vnd.google-apps.folder' and trashed=false",'files(id,name,parents,createdTime)');
 
-    setOv(30,'בודק תיקיות ריקות...');
-    results.empty=[];
-    if(document.getElementById('t-empty').classList.contains('on')) {
-      for(const f of folders) {
-        const c=await get(`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(`'${f.id}' in parents and trashed=false`)}&fields=files(id)&pageSize=1`);
-        if(!(c.files||[]).length) results.empty.push(f);
+    setP(30,'בודק תיקיות ריקות...');
+    res.empty=[];
+    if(document.getElementById('t-empty').classList.contains('on')){
+      for(const f of folders){
+        const c=await api(`https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(`'${f.id}' in parents and trashed=false`)}&fields=files(id)&pageSize=1`);
+        if(!(c.files||[]).length)res.empty.push(f);
       }
     }
 
-    setOv(50,'מחפש קבצים ישנים...');
-    results.old = document.getElementById('t-old').classList.contains('on')
-      ? await getAll("modifiedTime<'2025-01-01T00:00:00' and mimeType!='application/vnd.google-apps.folder' and trashed=false",'files(id,name,size,modifiedTime,mimeType,parents)')
-      : [];
+    setP(50,'מחפש קבצים ישנים...');
+    res.old=document.getElementById('t-old').classList.contains('on')
+      ?await getAll("modifiedTime<'2025-01-01T00:00:00' and mimeType!='application/vnd.google-apps.folder' and trashed=false",'files(id,name,size,modifiedTime,mimeType,parents)')
+      :[];
 
-    setOv(70,'מחפש כפולים...');
-    results.dup=[];
-    if(document.getElementById('t-dup').classList.contains('on')) {
+    setP(70,'מחפש כפולים...');
+    res.dup=[];
+    if(document.getElementById('t-dup').classList.contains('on')){
       const all=await getAll("mimeType!='application/vnd.google-apps.folder' and trashed=false",'files(id,name,size,modifiedTime,mimeType,parents)',500);
       const nm={};
       for(const f of all){if(!nm[f.name])nm[f.name]=[];nm[f.name].push(f);}
-      for(const fs of Object.values(nm)){if(fs.length>1)results.dup.push(...fs.slice(1));}
+      for(const fs of Object.values(nm)){if(fs.length>1)res.dup.push(...fs.slice(1));}
     }
 
-    setOv(85,'מחפש תיקיות כפולות...');
-    results.dupf=[];
-    if(document.getElementById('t-dupf').classList.contains('on')) {
+    setP(85,'מחפש תיקיות כפולות...');
+    res.dupf=[];
+    if(document.getElementById('t-dupf').classList.contains('on')){
       const fm={};
       for(const f of folders){if(!fm[f.name])fm[f.name]=[];fm[f.name].push(f);}
-      for(const fs of Object.values(fm)){if(fs.length>1)results.dupf.push(...fs);}
+      for(const fs of Object.values(fm)){if(fs.length>1)res.dupf.push(...fs);}
     }
 
-    setOv(100,'סיום!');
+    setP(100,'סיום!');
     await new Promise(r=>setTimeout(r,500));
     render();
-  } catch(e) {
-    alert('שגיאה: '+e.message);
-  } finally {
-    document.getElementById('overlay').classList.remove('show');
-  }
+    saveCache();
+  }catch(e){alert('שגיאה: '+e.message);}
+  finally{document.getElementById('ov').classList.remove('show');}
 }
 
-function icon(mime) {
-  if(!mime)return'📄';
-  if(mime.includes('image'))return'🖼️';
-  if(mime.includes('video'))return'🎥';
-  if(mime.includes('audio'))return'🎵';
-  if(mime.includes('pdf'))return'📕';
-  if(mime.includes('spreadsheet')||mime.includes('excel'))return'📊';
-  if(mime.includes('document')||mime.includes('word'))return'📝';
-  return'📄';
+// CACHE
+function saveCache(){
+  try{localStorage.setItem('doc_cache',JSON.stringify({t:new Date().toISOString(),r:res}));}catch(e){}
 }
-function sz(b){if(!b)return'';const n=parseInt(b);if(n>1e9)return(n/1e9).toFixed(1)+' GB';if(n>1e6)return(n/1e6).toFixed(1)+' MB';if(n>1e3)return(n/1e3).toFixed(1)+' KB';return n+' B';}
-function dt(iso){return iso?new Date(iso).toLocaleDateString('he-IL'):'';}
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-function render() {
+function loadCache(){
+  try{
+    const raw=localStorage.getItem('doc_cache');
+    if(!raw)return;
+    const c=JSON.parse(raw);
+    res=c.r;
+    const timeStr=new Date(c.t).toLocaleString('he-IL');
+    document.getElementById('cacheTxt').textContent='סריקה אחרונה: '+timeStr;
+    document.getElementById('cacheBar').style.display='flex';
+    render();
+  }catch(e){}
+}
+function clearCache(){
+  localStorage.removeItem('doc_cache');
+  res={empty:[],old:[],dup:[],dupf:[]};
   ['empty','old','dup','dupf'].forEach(t=>{
-    document.getElementById('s-'+t).textContent=results[t].length;
-    document.getElementById('b-'+t).textContent=results[t].length;
+    document.getElementById('s-'+t).textContent='—';
+    document.getElementById('b-'+t).textContent='0';
+    document.getElementById('list-'+t).innerHTML='<div class="empty"><div class="ei">📁</div><h3>לחץ "סרוק Drive" להתחיל</h3></div>';
+  });
+  document.getElementById('actPanel').style.display='none';
+  document.getElementById('cacheBar').style.display='none';
+}
+
+// RENDER
+function ico(m){if(!m)return'📄';if(m.includes('image'))return'🖼️';if(m.includes('video'))return'🎥';if(m.includes('audio'))return'🎵';if(m.includes('pdf'))return'📕';if(m.includes('spreadsheet')||m.includes('excel'))return'📊';if(m.includes('document')||m.includes('word'))return'📝';return'📄';}
+function sz(b){if(!b)return'';const n=parseInt(b);if(n>1e9)return(n/1e9).toFixed(1)+' GB';if(n>1e6)return(n/1e6).toFixed(1)+' MB';if(n>1e3)return(n/1e3).toFixed(1)+' KB';return n+' B';}
+function dt(i){return i?new Date(i).toLocaleDateString('he-IL'):'';}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function render(){
+  ['empty','old','dup','dupf'].forEach(t=>{
+    document.getElementById('s-'+t).textContent=res[t].length;
+    document.getElementById('b-'+t).textContent=res[t].length;
   });
 
-  renderList('empty',results.empty,f=>({
-    ic:'📁',name:f.name,meta:'תיקייה ריקה • '+dt(f.createdTime),
-    chip:'<span class="chip chip-danger">ריקה</span>',
-    act:`<button class="ibtn" onclick="openFolder('${f.id}')" title="פתח תיקייה">🔗</button><button class="ibtn del" onclick="delItem('${f.id}','empty')" title="העבר לפח">🗑️</button>`
+  rList('empty',res.empty,f=>({
+    isImg:false,
+    chip:'<span class="chip chip-d">ריקה</span>',
+    meta:'תיקייה ריקה • '+dt(f.createdTime),
+    act:`<button class="ib" onclick="openItem('${f.id}',true)" title="פתח">🔗</button><button class="ib d" onclick="delOne('${f.id}','empty')" title="לפח">🗑️</button>`
   }));
-  renderList('old',results.old,f=>({
-    ic:icon(f.mimeType),name:f.name,meta:'שונה: '+dt(f.modifiedTime)+(f.size?' • '+sz(f.size):''),
-    chip:'<span class="chip chip-warn">ישן</span>',
-    act:`<button class="ibtn" onclick="openF('${f.id}')" title="פתח">🔗</button>`
+
+  rList('old',res.old,f=>({
+    isImg:f.mimeType&&f.mimeType.includes('image'),
+    chip:'<span class="chip chip-w">ישן</span>',
+    meta:'שונה: '+dt(f.modifiedTime)+(f.size?' • '+sz(f.size):''),
+    act:`<button class="ib" onclick="openItem('${f.id}',false)" title="פתח">🔗</button><button class="ib d" onclick="delOne('${f.id}','old')" title="לפח">🗑️</button>`
   }));
-  renderList('dup',results.dup,f=>({
-    ic:icon(f.mimeType),name:f.name,meta:'שונה: '+dt(f.modifiedTime)+(f.size?' • '+sz(f.size):''),
-    chip:'<span class="chip chip-accent">כפול</span>',
-    act:`<button class="ibtn del" onclick="delItem('${f.id}','dup')" title="מחק">🗑️</button>`
+
+  rList('dup',res.dup,f=>({
+    isImg:f.mimeType&&f.mimeType.includes('image'),
+    chip:'<span class="chip chip-a">כפול</span>',
+    meta:'שונה: '+dt(f.modifiedTime)+(f.size?' • '+sz(f.size):''),
+    act:`<button class="ib" onclick="openItem('${f.id}',false)" title="פתח">🔗</button><button class="ib d" onclick="delOne('${f.id}','dup')" title="לפח">🗑️</button>`
   }));
-  renderList('dupf',results.dupf,f=>({
-    ic:'📁',name:f.name,meta:'תיקייה כפולה • '+dt(f.createdTime),
-    chip:'<span class="chip chip-accent">שם כפול</span>',
-    act:`<button class="ibtn" onclick="openF('${f.id}')" title="פתח">🔗</button>`
+
+  rList('dupf',res.dupf,f=>({
+    isImg:false,
+    chip:'<span class="chip chip-a">שם כפול</span>',
+    meta:'תיקייה כפולה • '+dt(f.createdTime),
+    act:`<button class="ib" onclick="openItem('${f.id}',true)" title="פתח">🔗</button><button class="ib d" onclick="delOne('${f.id}','dupf')" title="לפח">🗑️</button>`
   }));
 
   document.getElementById('actPanel').style.display='block';
 }
 
-function renderList(type,items,map) {
+function rList(type,items,map){
   const el=document.getElementById('list-'+type);
-  if(!items.length){el.innerHTML=`<div class="empty"><div class="ei">✅</div><h3>לא נמצאו פריטים — הכל תקין!</h3></div>`;return;}
-  el.innerHTML=items.map(f=>{const m=map(f);return`<div class="fi" id="fi-${f.id}"><span class="fi-icon">${m.ic}</span><div class="fi-info"><div class="fi-name">${esc(m.name)}</div><div class="fi-meta">${m.meta}</div></div>${m.chip}<div class="fi-actions">${m.act}</div></div>`;}).join('');
+  if(!items.length){el.innerHTML='<div class="empty"><div class="ei">✅</div><h3>לא נמצאו פריטים — הכל תקין!</h3></div>';return;}
+  el.innerHTML=items.map(f=>{
+    const m=map(f);
+    const thumb=m.isImg
+      ?`<img class="fi-img" src="https://drive.google.com/thumbnail?id=${f.id}&sz=w80-h80" onclick="pvImg('${f.id}','${esc(f.name)}')" onerror="this.style.display='none'">`
+      :`<span class="fi-ic">${ico(f.mimeType)}</span>`;
+    return`<div class="fi" id="fi-${f.id}">${thumb}<div class="fi-inf"><div class="fi-n">${esc(f.name)}</div><div class="fi-m">${m.meta}</div></div>${m.chip}<div class="fi-act">${m.act}</div></div>`;
+  }).join('');
 }
 
-function openF(id){window.open('https://drive.google.com/file/d/'+id+'/view','_blank');}
-
-let stopDeletion = false;
-
-function openFolder(id) {
-  window.open('https://drive.google.com/drive/folders/'+id, '_blank');
+// IMAGE PREVIEW
+function pvImg(id,name){
+  const d=document.createElement('div');
+  d.className='img-pv';
+  d.onclick=()=>d.remove();
+  d.innerHTML=`<div class="pv-name">${esc(name)}</div><img src="https://drive.google.com/thumbnail?id=${id}&sz=w1200-h900"><div class="pv-close">לחץ לסגירה</div>`;
+  document.body.appendChild(d);
 }
 
-async function delItem(id,type) {
-  if(!confirm('העבר פריט זה לפח האשפה של Google Drive?\n\nניתן לשחזר אותו בכל עת.'))return;
+// OPEN
+function openItem(id,isFolder){
+  const url=isFolder?`https://drive.google.com/drive/folders/${id}`:`https://drive.google.com/file/d/${id}/view`;
+  window.open(url,'_blank');
+}
+
+// DELETE
+async function delOne(id,type){
+  if(!confirm('העבר פריט זה לפח האשפה?\n\nניתן לשחזר בכל עת.'))return;
   try{
-    await del(`https://www.googleapis.com/drive/v3/files/${id}`);
-    results[type]=results[type].filter(f=>f.id!==id);
+    await api(`https://www.googleapis.com/drive/v3/files/${id}`,{method:'DELETE'});
+    res[type]=res[type].filter(f=>f.id!==id);
     const el=document.getElementById('fi-'+id);
-    if(el){el.style.opacity='0';el.style.transform='scale(.95)';el.style.transition='all .3s';setTimeout(()=>el.remove(),300);}
-    document.getElementById('s-'+type).textContent=results[type].length;
-    document.getElementById('b-'+type).textContent=results[type].length;
+    if(el){el.style.opacity='0';el.style.transition='all .25s';setTimeout(()=>el.remove(),250);}
+    document.getElementById('s-'+type).textContent=res[type].length;
+    document.getElementById('b-'+type).textContent=res[type].length;
+    saveCache();
   }catch(e){alert('שגיאה: '+e.message);}
 }
 
-async function deleteAll(type) {
-  const items=results[type];
+async function delAll(type){
+  const items=res[type];
   if(!items.length)return;
-  if(!confirm(`העבר ${items.length} פריטים לפח האשפה של Google Drive?\n\nניתן לשחזר אותם בכל עת.`))return;
-  
-  stopDeletion = false;
-  const stopBtn = document.getElementById('stopBtn-'+type);
-  if(stopBtn) stopBtn.style.display='inline-flex';
-  
-  let n=0, errors=0;
+  if(!confirm(`העבר ${items.length} פריטים לפח האשפה?\n\nניתן לשחזר בכל עת.`))return;
+  stopped=false;
+  const sb=document.getElementById('stop-'+type);
+  if(sb)sb.style.display='inline-flex';
+  let n=0,err=0;
   for(const f of [...items]){
-    if(stopDeletion) break;
+    if(stopped)break;
     try{
-      await del(`https://www.googleapis.com/drive/v3/files/${f.id}`);
-      results[type]=results[type].filter(x=>x.id!==f.id);
+      await api(`https://www.googleapis.com/drive/v3/files/${f.id}`,{method:'DELETE'});
+      res[type]=res[type].filter(x=>x.id!==f.id);
       n++;
       const el=document.getElementById('fi-'+f.id);
       if(el){el.style.opacity='0';el.style.transition='all .2s';setTimeout(()=>el.remove(),200);}
-      document.getElementById('s-'+type).textContent=results[type].length;
-      document.getElementById('b-'+type).textContent=results[type].length;
-    }catch(e){errors++;}
+      document.getElementById('s-'+type).textContent=res[type].length;
+      document.getElementById('b-'+type).textContent=res[type].length;
+    }catch(e){err++;}
     await new Promise(r=>setTimeout(r,150));
   }
-  
-  if(stopBtn) stopBtn.style.display='none';
-  let msg = stopDeletion ? `הופסק! הועברו לפח: ${n} פריטים` : `הועברו לפח האשפה: ${n} פריטים ✅`;
-  if(errors) msg += `\nשגיאות: ${errors}`;
+  if(sb)sb.style.display='none';
+  saveCache();
+  let msg=stopped?`הופסק — הועברו לפח: ${n}`:`הועברו לפח: ${n} פריטים ✅`;
+  if(err)msg+=`\nשגיאות: ${err}`;
   alert(msg);
-  stopDeletion = false;
+  stopped=false;
 }
 
-function stopDelete() {
-  stopDeletion = true;
-  document.querySelectorAll('[id^="stopBtn-"]').forEach(b=>b.style.display='none');
+function stop(){
+  stopped=true;
+  document.querySelectorAll('[id^="stop-"]').forEach(b=>b.style.display='none');
 }
-
-async function getOrMakeFolder(name) {
-  const r=await getAll(`name='${name}' and mimeType='${FOLDER_MIME}' and trashed=false`,'files(id)');
-  if(r.length)return r[0].id;
-  const f=await post('https://www.googleapis.com/drive/v3/files',{name,mimeType:FOLDER_MIME});
-  return f.id;
-}
-
-async function moveFiles(items,folderName,key) {
-  if(!items.length)return;
-  const fid=await getOrMakeFolder(folderName);
-  let n=0;
-  for(const f of items){
-    try{
-      await fetch(`https://www.googleapis.com/drive/v3/files/${f.id}?addParents=${fid}&removeParents=${(f.parents||[]).join(',')}&fields=id`,{method:'PATCH',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json'},body:'{}'});
-      n++;
-    }catch(e){}
-  }
-  results[key]=[];
-  render();
-  alert(`הועברו ${n} פריטים לתיקייה "${folderName}" ✅`);
-}
-
-async function moveOld(){if(!results.old.length){alert('אין קבצים ישנים');return;}if(!confirm(`להעביר ${results.old.length} קבצים?`))return;try{await moveFiles(results.old,'Archive - Before 2025','old');}catch(e){alert('שגיאה: '+e.message);}}
-async function moveDup(){if(!results.dup.length){alert('אין כפולים');return;}if(!confirm(`להעביר ${results.dup.length} כפולים?`))return;try{await moveFiles(results.dup,'Duplicates','dup');}catch(e){alert('שגיאה: '+e.message);}}
 </script>
 </body>
 </html>
